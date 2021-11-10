@@ -1,14 +1,17 @@
-import { Route, Router, Redirect } from 'react-router';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { Fragment } from 'react';
-import List from './List';
-import Blank from './Blank';
+import Services from './Services';
+import StartPage from './StartPage';
 
 export default function UnionComponent() {
     return (
         <Fragment>
             <Router>
-                <Route path="/service" exact component={List} />
-                <Route path="/" exact component={Blank} />
+                <Switch>
+                    <Route path="/service" exact component={Services} />
+                    <Route path="/" exact component={StartPage} />  
+                </Switch>
+                
             </Router>
         </Fragment>
     )
