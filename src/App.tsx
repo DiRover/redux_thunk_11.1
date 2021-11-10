@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Skills from './components/Skills';
+import UnionComponent from './components/UnionComponent';
 
 function App() {
     return (
-        <Skills />
+        <UnionComponent />
     );
 }
 

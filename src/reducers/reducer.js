@@ -12,7 +12,7 @@ const initialState = {
   search: '',
 };
 
-export default function skillsReducer(state = initialState, action) {
+export default function listReducer(state = initialState, action) {
   switch (action.type) { //экшен отправки запроса
     case SEARCH_SKILLS_REQUEST:
       return {
