@@ -14,7 +14,7 @@ export default function Actions(props) {
                     <button type="button" className="btn btn-outline-dark"
                             onClick={() => {
                                 getFetch({method: "GET", dispatch, id});
-                                dispatch(loadDescription());
+                                dispatch(loadDescription(id));
                             }}>
                     <span className="material-icons">
                         edit

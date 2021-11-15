@@ -4,6 +4,7 @@ import {
     LOAD_LIST_FAILED,
     LOAD_DESCRIPTION,
     LOAD_DESCRIPTION_SUCCESS,
+    CANCEL,
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
     loading: false,
     error: null,
     description: null,
+    id: null,
 };
 
 export default function listReducer(state = initialState, action) {
@@ -19,6 +21,7 @@ export default function listReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: true,
+                error: false,
             };
         case LOAD_LIST_SUCCESS:
             return {
@@ -30,11 +33,15 @@ export default function listReducer(state = initialState, action) {
             }
         case LOAD_DESCRIPTION:
             return {
-                ...state, loading: true,
+                ...state, loading: true, error: false, id: action.payload,
             }
         case LOAD_DESCRIPTION_SUCCESS:
             return {
-                ...state, loading: false, error: false, description: action.payload,
+                ...state, loading: false, error: false, description: action.payload, id: null,
+            }
+        case CANCEL:
+            return {
+                ...state, description: null,
             }
         default:
             return state;

@@ -1,10 +1,22 @@
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import { Fragment } from 'react';
+import {Fragment, useContext, useEffect} from 'react';
 import ServicesList from './ServicesList';
 import StartPage from './StartPage';
 import Description from "./Description";
+import {useDispatch} from "react-redux";
+import Context from "../context/Context";
+import {loadList} from "../actions/actionCreators";
 
 export default function UnionComponent() {
+    const { getFetch } = useContext(Context);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        dispatch(loadList());
+        getFetch({method: "GET", dispatch});
+    }, [dispatch]);
+
     return (
         <Fragment>
             <Router>
@@ -18,6 +30,3 @@ export default function UnionComponent() {
         </Fragment>
     )
 }
-
-//<Route path="/list/:id" exact component={Description} />
-// <Redirect to="/service" />¬

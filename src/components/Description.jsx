@@ -4,44 +4,59 @@ import {useContext} from "react";
 import {Link} from 'react-router-dom';
 import Context from "../context/Context";
 import Spinner from "./Spinner";
+import {cancel} from "../actions/actionCreators";
+import Message from "./Message";
 
 export default function Description() {
-    const {loading, description} = useSelector(state => state.list);
+    const {loading, error, description} = useSelector(state => state.list);
     const {getFetch} = useContext(Context);
     const dispatch = useDispatch();
-    console.log(description);
-    const Submit = () => {
-        console.log('ok')
+
+    const onSubmit = (val) => {
+        const value = {id: val.id, name: val.Name, price: Number(val.Price), content: val.Content}
+        getFetch({method: "POST", dispatch, value});
+
     }
 
-    console.log(description);
+    const handleCancel = () => dispatch(cancel());
 
     return (
         <>
-            <Link to="/">Home</Link>
             {loading && <Spinner/>}
-            {!loading &&
-            <Form onSubmit={Submit}
+            {description &&
+            <Form onSubmit={onSubmit}
                   initialValues={{...description}}
-                  render={() => (
-                          <form style={{"width": "500px", "margin": "50px"}}>
-                              <div className="mb-3">
-                                  <label htmlFor="inputName" className="form-label">Название</label>
-                                  <Field name="Name" component="input" type="text" className="form-control form-control-lg" id="inputName" initialValue={description.name} required/>
-                              </div>
-                              <div className="mb-3">
-                                  <label htmlFor="inputPrice" className="form-label">Стоимость</label>
-                                  <Field name="Price" type="text" component="input" className="form-control form-control-lg" id="inputPrice" initialValue={description.price} required/>
-                              </div>
-                              <div className="mb-3">
-                                  <label htmlFor="inputContent" className="form-label">Описание</label>
-                                  <Field name="Content" type="text" component="input" className="form-control form-control-lg" id="inputContent" initialValue={description.content} required/>
-                              </div>
-                              <button type="submit" className="btn btn-dark">Submit</button>
-                          </form>
+                  render={({handleSubmit}) => (
+                      <form style={{"width": "500px", "margin": "50px"}} onSubmit={handleSubmit}>
+                          <div className="mb-3">
+                              <label htmlFor="inputName" className="form-label">Название</label>
+                              <Field name="Name" component="input" type="text"
+                                     className="form-control form-control-lg"
+                                     id="inputName" initialValue={description.name} required/>
+                          </div>
+                          <div className="mb-3">
+                              <label htmlFor="inputPrice" className="form-label">Стоимость</label>
+                              <Field name="Price" type="text" component="input"
+                                     className="form-control form-control-lg"
+                                     id="inputPrice" initialValue={description.price} required/>
+                          </div>
+                          <div className="mb-3">
+                              <label htmlFor="inputContent" className="form-label">Описание</label>
+                              <Field name="Content" type="text" component="input"
+                                     className="form-control form-control-lg" id="inputContent"
+                                     initialValue={description.content} required/>
+                          </div>
+                          <Link to="/services">
+                              <button className="btn btn-dark" onClick={handleCancel}>Cancel</button>
+                          </Link>
+                          <button type="submit" className="btn btn-dark" style={{"marginLeft": "30px"}}
+                          >Submit
+                          </button>
+                      </form>
                   )}
             />
             }
+            {error && <Message variant="description" />}
         </>
     )
 }

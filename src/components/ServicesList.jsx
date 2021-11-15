@@ -1,8 +1,5 @@
 import {Fragment, useEffect, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Router} from 'react-router';
-import {loadList, loadListSuccess, loadListFailed} from '../actions/actionCreators';
-import Context from '../context/Context';
 
 import Spinner from "./Spinner";
 import Message from "./Message";
@@ -12,14 +9,8 @@ import Actions from "./Actions"
 // компонент отображения списка
 
 export default function ServicesList() {
-    const {list, loading, error, search} = useSelector(state => state.list);
-    const { getFetch } = useContext(Context);
+    const {list, loading, error} = useSelector(state => state.list);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(loadList());
-        getFetch({method: "GET", dispatch});
-    }, []);
 
     return (
         <Fragment>
@@ -45,7 +36,7 @@ export default function ServicesList() {
                 }) : <Spinner />}`
                 </tbody>
             </table>
-            {error && <Message />}
+            {error && <Message variant="list" />}
         < /Fragment>
 
     )
