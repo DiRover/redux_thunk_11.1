@@ -1,5 +1,5 @@
 import Context from "./Context";
-import {loadListFailed, loadListSuccess, loadDescriptionSuccess} from "../actions/actionCreators";
+import {loadListFailed, loadListSuccess, loadDescriptionSuccess, uploadServiceSuccess, uploadServiceFailed} from "../actions/actionCreators";
 
 export default function Provider(prop) {
     const getFetch = async ({method, dispatch, id, value}) => {
@@ -8,9 +8,7 @@ export default function Provider(prop) {
             if (method === "GET" && !id) {//получаем список первоначально
                 const response = await fetch(process.env.REACT_APP_SEARCH_URL);
                 const data = await response.json();
-                console.log(data);
                 dispatch(loadListSuccess(data));
-                console.log(response.ok)
             } else if (method === "DELETE") {//удаляем элемент списка
                 await fetch(`${process.env.REACT_APP_SEARCH_URL}/${id}`, {
                     method,
@@ -32,7 +30,6 @@ export default function Provider(prop) {
                 dispatch(loadDescriptionSuccess(data));
 
             } else if (method === "POST") {// отправляем отредактированный сервис
-                console.log(value);
                 const response = await fetch(process.env.REACT_APP_SEARCH_URL, {
                     method: "POST",
                     body: JSON.stringify(value),
@@ -41,8 +38,7 @@ export default function Provider(prop) {
                     }
 
                 })
-                const data = await response.text();
-                console.log(data);
+                response.ok ? dispatch(uploadServiceSuccess()) : dispatch(uploadServiceFailed());
             }
 
         } catch (e) {

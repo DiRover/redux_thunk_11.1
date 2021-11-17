@@ -5,6 +5,9 @@ import {
     LOAD_DESCRIPTION,
     LOAD_DESCRIPTION_SUCCESS,
     CANCEL,
+    UPLOAD_SERVICE,
+    UPLOAD_SERVICE_SUCCESS,
+    UPLOAD_SERVICE_FAILED,
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -13,15 +16,18 @@ const initialState = {
     error: null,
     description: null,
     id: null,
+    save: null,
+    upload: true,
 };
 
 export default function listReducer(state = initialState, action) {
-    switch (action.type) { //экшен отправки запроса
+    switch (action.type) {
         case LOAD_LIST:
             return {
                 ...state,
                 loading: true,
                 error: false,
+                save: null,
             };
         case LOAD_LIST_SUCCESS:
             return {
@@ -29,11 +35,11 @@ export default function listReducer(state = initialState, action) {
             }
         case LOAD_LIST_FAILED:
             return {
-                ...state, loading: false, error: true,
+                ...state, loading: false, error: true, list: [],
             }
         case LOAD_DESCRIPTION:
             return {
-                ...state, loading: true, error: false, id: action.payload,
+                ...state, loading: true, error: false, id: action.payload, save: false,
             }
         case LOAD_DESCRIPTION_SUCCESS:
             return {
@@ -41,7 +47,19 @@ export default function listReducer(state = initialState, action) {
             }
         case CANCEL:
             return {
-                ...state, description: null,
+                ...state, description: null, loading: false, error: false
+            }
+        case UPLOAD_SERVICE:
+            return {
+                ...state, loading: true, error: false,
+            }
+        case UPLOAD_SERVICE_SUCCESS:
+            return {
+                ...state, loading: false, error: false, description: null, list: [], save: true, upload: true,
+            }
+        case UPLOAD_SERVICE_FAILED:
+            return {
+                ...state, loading: false, error: true, save: false, upload: false,
             }
         default:
             return state;

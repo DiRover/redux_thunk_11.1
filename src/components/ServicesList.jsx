@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useContext} from 'react';
+import {Fragment,} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Spinner from "./Spinner";

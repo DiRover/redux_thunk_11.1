@@ -4,25 +4,26 @@ import {useContext} from "react";
 import {Link} from 'react-router-dom';
 import Context from "../context/Context";
 import Spinner from "./Spinner";
-import {cancel} from "../actions/actionCreators";
+import {cancel, uploadService} from "../actions/actionCreators";
 import Message from "./Message";
+import {Redirect} from "react-router";
 
 export default function Description() {
-    const {loading, error, description} = useSelector(state => state.list);
+    const {loading, error, description, save, upload} = useSelector(state => state.list);
     const {getFetch} = useContext(Context);
     const dispatch = useDispatch();
 
     const onSubmit = (val) => {
-        const value = {id: val.id, name: val.Name, price: Number(val.Price), content: val.Content}
+        const value = {id: val.id, name: val.Name, price: Number(val.Price), content: val.Content};
+        dispatch(uploadService());
         getFetch({method: "POST", dispatch, value});
-
     }
 
     const handleCancel = () => dispatch(cancel());
 
     return (
         <>
-            {loading && <Spinner/>}
+            {!description && <Spinner/>}
             {description &&
             <Form onSubmit={onSubmit}
                   initialValues={{...description}}
@@ -46,17 +47,24 @@ export default function Description() {
                                      className="form-control form-control-lg" id="inputContent"
                                      initialValue={description.content} required/>
                           </div>
-                          <Link to="/services">
-                              <button className="btn btn-dark" onClick={handleCancel}>Cancel</button>
-                          </Link>
-                          <button type="submit" className="btn btn-dark" style={{"marginLeft": "30px"}}
-                          >Submit
-                          </button>
+                          {upload && setTimeout(() => {
+                              return <div style={{"margin": "5px"}}>Upload changes is failed, please try again.</div>
+                          }, 3000)}
+                          {!loading && <>
+                              <Link to="/services">
+                                  <button className="btn btn-dark" onClick={handleCancel}>Cancel</button>
+                              </Link>
+                              <button type="submit" className="btn btn-dark" style={{"marginLeft": "30px"}}
+                              >Submit
+                              </button>
+                          </>}
+                          {loading && <Spinner/>}
                       </form>
                   )}
             />
             }
-            {error && <Message variant="description" />}
+            {error && <Message variant="description"/>}
+            {save && <Redirect to='/'/>}
         </>
     )
 }

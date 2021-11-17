@@ -15,9 +15,13 @@ export default function Message(prop) {
             case 'list':
                 dispatch(loadList());
                 getFetch({method: "GET", dispatch});
+                break;
             case 'description':
                 dispatch(loadDescription(id));
                 getFetch({method: "GET", dispatch, id});
+                break;
+            default:
+                break;
         }
     }
     return (
@@ -27,7 +31,7 @@ export default function Message(prop) {
             </div>
             <div className="card-body">
                 <h5 className="card-title">Server doesn't response</h5>
-                <p className="card-text">For new try, please reload page to get services list</p>
+                <p className="card-text">For new try, please push the button</p>
                 <button type="button" className="btn btn-dark" onClick={handleRequest}>Reload</button>
             </div>
         </div>

@@ -5,6 +5,9 @@ import {
     LOAD_DESCRIPTION,
     LOAD_DESCRIPTION_SUCCESS,
     CANCEL,
+    UPLOAD_SERVICE,
+    UPLOAD_SERVICE_SUCCESS,
+    UPLOAD_SERVICE_FAILED,
 } from './actionTypes';
 
 // создание экшенов
@@ -26,6 +29,7 @@ export const loadListSuccess = (list) => {
 
 //экшен неудачной загрузки списка
 export const loadListFailed = () => {
+    console.log('fail');
     return {
         type: LOAD_LIST_FAILED,
     }
@@ -50,5 +54,26 @@ export const loadDescriptionSuccess = (data) => {
 export const cancel = () => {
     return {
         type: CANCEL,
+    }
+}
+
+// экшен загрузки отредактированного сервиса
+export const uploadService = () => {
+    return {
+        type: UPLOAD_SERVICE,
+    }
+}
+
+//экшен удачной загрузки отредкированного сервиса на сервер
+export const uploadServiceSuccess = () => {
+    return {
+        type: UPLOAD_SERVICE_SUCCESS,
+    }
+}
+
+//экшен неудачной загрузки отредкированного сервиса на сервер
+export const uploadServiceFailed = () => {
+    return {
+        type: UPLOAD_SERVICE_SUCCESS,
     }
 }
