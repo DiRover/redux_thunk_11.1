@@ -23,7 +23,7 @@ export default function Description() {
 
     return (
         <>
-            {!description && <Spinner/>}
+            {loading && <Spinner/>}
             {description &&
             <Form onSubmit={onSubmit}
                   initialValues={{...description}}
@@ -47,9 +47,7 @@ export default function Description() {
                                      className="form-control form-control-lg" id="inputContent"
                                      initialValue={description.content} required/>
                           </div>
-                          {upload && setTimeout(() => {
-                              return <div style={{"margin": "5px"}}>Upload changes is failed, please try again.</div>
-                          }, 3000)}
+                          {upload && <div style={{"margin": "5px"}}>Upload changes is failed, please try again.</div>}
                           {!loading && <>
                               <Link to="/services">
                                   <button className="btn btn-dark" onClick={handleCancel}>Cancel</button>

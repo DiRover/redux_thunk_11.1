@@ -74,6 +74,6 @@ export const uploadServiceSuccess = () => {
 //экшен неудачной загрузки отредкированного сервиса на сервер
 export const uploadServiceFailed = () => {
     return {
-        type: UPLOAD_SERVICE_SUCCESS,
+        type: UPLOAD_SERVICE_FAILED,
     }
 }

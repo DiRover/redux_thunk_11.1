@@ -37,7 +37,7 @@ export default function ServicesList() {
                 </tbody>
             </table>
             {error && <Message variant="list" />}
-        < /Fragment>
+        </Fragment>
 
     )
 }

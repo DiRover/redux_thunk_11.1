@@ -35,7 +35,7 @@ export default function listReducer(state = initialState, action) {
             }
         case LOAD_LIST_FAILED:
             return {
-                ...state, loading: false, error: true, list: [],
+                ...state, loading: false, error: true,
             }
         case LOAD_DESCRIPTION:
             return {
