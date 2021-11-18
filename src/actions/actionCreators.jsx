@@ -8,6 +8,7 @@ import {
     UPLOAD_SERVICE,
     UPLOAD_SERVICE_SUCCESS,
     UPLOAD_SERVICE_FAILED,
+    LOAD_DESCRIPTION_FAILED,
 } from './actionTypes';
 
 // создание экшенов
@@ -42,11 +43,18 @@ export const loadDescription = (id) => {
         payload: id,
     }
 }
-//экшен загрузки описания
+//экшен удачной загрузки описания
 export const loadDescriptionSuccess = (data) => {
     return {
         type: LOAD_DESCRIPTION_SUCCESS,
         payload: data,
+    }
+}
+
+//экшен неудачной загрузки описания
+export const loadDescriptionFailed = () => {
+    return {
+        type: LOAD_DESCRIPTION_FAILED,
     }
 }
 

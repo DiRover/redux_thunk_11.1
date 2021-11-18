@@ -1,6 +1,6 @@
 import Context from "./Context";
 import {loadListFailed, loadListSuccess, loadDescriptionSuccess, uploadServiceSuccess, uploadServiceFailed} from "../actions/actionCreators";
-
+// http://unionserver.herokuapp.com/ra11/api/services
 export default function Provider(prop) {
     const getFetch = async ({method, dispatch, id, value}) => {
         try {
@@ -8,7 +8,8 @@ export default function Provider(prop) {
             if (method === "GET" && !id) {//получаем список первоначально
                 const response = await fetch(process.env.REACT_APP_SEARCH_URL);
                 const data = await response.json();
-                dispatch(loadListSuccess(data));
+                response.ok ? dispatch(loadListSuccess(data)) : dispatch(loadListFailed());
+                
             } else if (method === "DELETE") {//удаляем элемент списка
                 await fetch(`${process.env.REACT_APP_SEARCH_URL}/${id}`, {
                     method,
@@ -27,7 +28,7 @@ export default function Provider(prop) {
             } else if (method === "GET" && id) {//получение описание сервиса для редактирования
                 const response = await fetch(`${process.env.REACT_APP_SEARCH_URL}/${id}`);
                 const data = await response.json();
-                dispatch(loadDescriptionSuccess(data));
+                response.ok ? dispatch(loadDescriptionSuccess(data)) : dispatch(loadListFailed());
 
             } else if (method === "POST") {// отправляем отредактированный сервис
                 const response = await fetch(process.env.REACT_APP_SEARCH_URL, {
@@ -43,7 +44,7 @@ export default function Provider(prop) {
 
         } catch (e) {
             console.log(e)
-            dispatch(loadListFailed());
+            
         }
     }
 

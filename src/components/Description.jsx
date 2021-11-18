@@ -13,6 +13,12 @@ export default function Description() {
     const {getFetch} = useContext(Context);
     const dispatch = useDispatch();
 
+    console.log({loading});
+    console.log({error});
+    console.log({description});
+    console.log({save});
+    console.log({upload});
+
     const onSubmit = (val) => {
         const value = {id: val.id, name: val.Name, price: Number(val.Price), content: val.Content};
         dispatch(uploadService());
@@ -47,7 +53,7 @@ export default function Description() {
                                      className="form-control form-control-lg" id="inputContent"
                                      initialValue={description.content} required/>
                           </div>
-                          {upload && <div style={{"margin": "5px"}}>Upload changes is failed, please try again.</div>}
+                          {!upload && <div style={{"margin": "5px"}}>Upload changes is failed, please try again.</div>}
                           {!loading && <>
                               <Link to="/services">
                                   <button className="btn btn-dark" onClick={handleCancel}>Cancel</button>

@@ -8,6 +8,7 @@ import {
     UPLOAD_SERVICE,
     UPLOAD_SERVICE_SUCCESS,
     UPLOAD_SERVICE_FAILED,
+    LOAD_DESCRIPTION_FAILED,
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -45,9 +46,13 @@ export default function listReducer(state = initialState, action) {
             return {
                 ...state, loading: false, error: false, description: action.payload, id: null,
             }
+        case LOAD_DESCRIPTION_FAILED:
+            return {
+                ...state, loading: false, error: true, description: null, id: null,
+            }
         case CANCEL:
             return {
-                ...state, description: null, loading: false, error: false
+                ...state, description: null, loading: false, error: false, upload: true,
             }
         case UPLOAD_SERVICE:
             return {
@@ -59,7 +64,7 @@ export default function listReducer(state = initialState, action) {
             }
         case UPLOAD_SERVICE_FAILED:
             return {
-                ...state, loading: false, error: true, save: false, upload: false,
+                ...state, loading: false, error: false, save: false, upload: false,
             }
         default:
             return state;
