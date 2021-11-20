@@ -1,5 +1,5 @@
 import Context from "./Context";
-import {loadListFailed, loadListSuccess, loadDescriptionSuccess, uploadServiceSuccess, uploadServiceFailed} from "../actions/actionCreators";
+import {loadListFailed, loadListSuccess, loadDescriptionSuccess, uploadServiceSuccess, uploadServiceFailed, serverError} from "../actions/actionCreators";
 // http://unionserver.herokuapp.com/ra11/api/services
 export default function Provider(prop) {
     const getFetch = async ({method, dispatch, id, value}) => {
@@ -43,6 +43,9 @@ export default function Provider(prop) {
             }
 
         } catch (e) {
+
+            dispatch(serverError());
+
             console.log(e)
             
         }

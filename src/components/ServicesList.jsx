@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Spinner from "./Spinner";
 import Message from "./Message";
 import Actions from "./Actions"
+import { Link } from 'react-router-dom';
 
 
 // компонент отображения списка
@@ -14,6 +15,7 @@ export default function ServicesList() {
 
     return (
         <Fragment>
+            <Link to='/'>Home</Link>
             <table className="table table-striped">
                 <thead>
                 <tr>

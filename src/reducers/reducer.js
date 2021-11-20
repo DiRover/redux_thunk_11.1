@@ -9,6 +9,7 @@ import {
     UPLOAD_SERVICE_SUCCESS,
     UPLOAD_SERVICE_FAILED,
     LOAD_DESCRIPTION_FAILED,
+    SERVER_ERROR,
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -23,10 +24,17 @@ const initialState = {
 
 export default function listReducer(state = initialState, action) {
     switch (action.type) {
+        case SERVER_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: true
+            }
         case LOAD_LIST:
             return {
                 ...state,
                 loading: true,
+                list: [],
                 error: false,
                 save: null,
             };
@@ -40,7 +48,7 @@ export default function listReducer(state = initialState, action) {
             }
         case LOAD_DESCRIPTION:
             return {
-                ...state, loading: true, error: false, id: action.payload, save: false,
+                ...state, loading: true, error: false, id: action.payload, save: false, description: null,
             }
         case LOAD_DESCRIPTION_SUCCESS:
             return {

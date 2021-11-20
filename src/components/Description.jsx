@@ -13,12 +13,6 @@ export default function Description() {
     const {getFetch} = useContext(Context);
     const dispatch = useDispatch();
 
-    console.log({loading});
-    console.log({error});
-    console.log({description});
-    console.log({save});
-    console.log({upload});
-
     const onSubmit = (val) => {
         const value = {id: val.id, name: val.Name, price: Number(val.Price), content: val.Content};
         dispatch(uploadService());
@@ -29,7 +23,6 @@ export default function Description() {
 
     return (
         <>
-            {loading && <Spinner/>}
             {description &&
             <Form onSubmit={onSubmit}
                   initialValues={{...description}}
@@ -62,13 +55,13 @@ export default function Description() {
                               >Submit
                               </button>
                           </>}
-                          {loading && <Spinner/>}
                       </form>
                   )}
             />
             }
             {error && <Message variant="description"/>}
             {save && <Redirect to='/'/>}
+            {loading && <Spinner />}
         </>
     )
 }

@@ -9,9 +9,19 @@ import {
     UPLOAD_SERVICE_SUCCESS,
     UPLOAD_SERVICE_FAILED,
     LOAD_DESCRIPTION_FAILED,
+    SERVER_ERROR,
 } from './actionTypes';
 
 // создание экшенов
+
+// экшен ошибки сервера
+
+export const serverError = () => {
+    console.log('server error')
+    return {
+        type: SERVER_ERROR,
+    }
+}
 
 // экшен поиска
 export const loadList = () => {
