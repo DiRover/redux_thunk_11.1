@@ -2,10 +2,11 @@ import Context from '../context/Context';
 import {useContext} from "react";
 import {Link} from 'react-router-dom';
 import {loadDescription} from "../actions/actionCreators";
-
+// компонет с кнопками удаления и редактирования
+// и также логика для перехода на страницу редактирования
 export default function Actions(props) {
-    const {id, dispatch} = props;
-    const {getFetch} = useContext(Context);
+    const {id, dispatch} = props; // получаем айди сервиса для редактирования
+    const {getFetch} = useContext(Context); // функция для отправки запросов
 
     return (
         <>

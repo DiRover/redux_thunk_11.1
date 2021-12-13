@@ -39,12 +39,15 @@ export default function Provider(prop) {
                     }
 
                 })
+
+                // обработка какой-то еще хрен пойми ошибки от сервера
+
                 response.ok ? dispatch(uploadServiceSuccess()) : dispatch(uploadServiceFailed());
             }
 
         } catch (e) {
 
-            dispatch(serverError());
+            dispatch(serverError()); // более частая ошибка сервера
 
             console.log(e)
             

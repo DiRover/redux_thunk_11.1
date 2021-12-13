@@ -12,6 +12,8 @@ import {
     SERVER_ERROR,
 } from '../actions/actionTypes'
 
+// начальное состояние
+
 const initialState = {
     list: [],
     loading: false,
@@ -22,15 +24,17 @@ const initialState = {
     upload: true,
 };
 
+//здоровый редьюсер
+
 export default function listReducer(state = initialState, action) {
     switch (action.type) {
-        case SERVER_ERROR:
+        case SERVER_ERROR: //ошибка сервера
             return {
                 ...state,
                 loading: false,
                 error: true
             }
-        case LOAD_LIST:
+        case LOAD_LIST: //начало загрузки списка
             return {
                 ...state,
                 loading: true,
@@ -38,39 +42,39 @@ export default function listReducer(state = initialState, action) {
                 error: false,
                 save: null,
             };
-        case LOAD_LIST_SUCCESS:
+        case LOAD_LIST_SUCCESS: // удачная загрузка списка
             return {
                 ...state, loading: false, error: false, list: action.payload,
             }
-        case LOAD_LIST_FAILED:
+        case LOAD_LIST_FAILED: // неудачная загрузка списка
             return {
                 ...state, loading: false, error: true,
             }
-        case LOAD_DESCRIPTION:
+        case LOAD_DESCRIPTION: //начало загрузки описания
             return {
                 ...state, loading: true, error: false, id: action.payload, save: false, description: null,
             }
-        case LOAD_DESCRIPTION_SUCCESS:
+        case LOAD_DESCRIPTION_SUCCESS: // удачная загрузка описания
             return {
                 ...state, loading: false, error: false, description: action.payload, id: null,
             }
-        case LOAD_DESCRIPTION_FAILED:
+        case LOAD_DESCRIPTION_FAILED: // неудачная загрузкао описания
             return {
                 ...state, loading: false, error: true, description: null, id: null,
             }
-        case CANCEL:
+        case CANCEL: // отмена редактирования описания
             return {
                 ...state, description: null, loading: false, error: false, upload: true,
             }
-        case UPLOAD_SERVICE:
+        case UPLOAD_SERVICE: // загрузка отредактированного описания на сервер
             return {
                 ...state, loading: true, error: false,
             }
-        case UPLOAD_SERVICE_SUCCESS:
+        case UPLOAD_SERVICE_SUCCESS: // удачная загрузка отредактированного описания на сервер
             return {
                 ...state, loading: false, error: false, description: null, list: [], save: true, upload: true,
             }
-        case UPLOAD_SERVICE_FAILED:
+        case UPLOAD_SERVICE_FAILED: //не удачная загрузка отредактированного описания на сервер
             return {
                 ...state, loading: false, error: false, save: false, upload: false,
             }

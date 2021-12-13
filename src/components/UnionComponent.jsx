@@ -4,6 +4,8 @@ import ServicesList from './ServicesList';
 import StartPage from './StartPage';
 import Description from "./Description";
 
+// объединенный компонент для роутов
+
 export default function UnionComponent() {
 
     return (

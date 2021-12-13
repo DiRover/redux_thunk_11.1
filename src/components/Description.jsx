@@ -7,20 +7,20 @@ import Spinner from "./Spinner";
 import {cancel, uploadService} from "../actions/actionCreators";
 import Message from "./Message";
 import {Redirect} from "react-router";
-
+//компонент для отрисовки описания сервиса
 export default function Description() {
-    const {loading, error, description, save, upload} = useSelector(state => state.list);
-    const {getFetch} = useContext(Context);
+    const {loading, error, description, save, upload} = useSelector(state => state.list); //получаем всякие переменные для логики отрисовки спинера и описания
+    const {getFetch} = useContext(Context); // функия для обработки запросов
     const dispatch = useDispatch();
 
-    const onSubmit = (val) => {
-        const value = {id: val.id, name: val.Name, price: Number(val.Price), content: val.Content};
-        dispatch(uploadService());
-        getFetch({method: "POST", dispatch, value});
+    const onSubmit = (val) => { // сабмит формы
+        const value = {id: val.id, name: val.Name, price: Number(val.Price), content: val.Content}; // получаю значение из формы
+        dispatch(uploadService()); // указываю состояние о том, что происходит загрузка на сервер, крутиться спинер
+        getFetch({method: "POST", dispatch, value}); // отправляю данные на сервер
     }
 
-    const handleCancel = () => dispatch(cancel());
-
+    const handleCancel = () => dispatch(cancel()); // отмера редактирования и сброс всего
+    // всякая логика для отображения спинера и описания сервиса
     return (
         <>
             {description &&

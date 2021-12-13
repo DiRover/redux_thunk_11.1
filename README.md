@@ -73,3 +73,5 @@ API
 То же самое с формой редактирования: отключайте всю форму и рисуйте спиннер не вместо всей формы, а только на кнопке:
 
 ![](./assets/edit-spinner.png)
+
+Server API  https://unionserver.herokuapp.com/ra11/api/services

@@ -4,6 +4,9 @@ import Context from "../context/Context";
 import {useDispatch} from "react-redux";
 import {loadList} from "../actions/actionCreators";
 
+// стартовая страница с первоначальной загрузкой списка
+// и редиректом на компонент со списком услуг
+
 export default function StartPage() {
 
     const { getFetch } = useContext(Context);

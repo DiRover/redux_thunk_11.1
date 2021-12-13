@@ -2,7 +2,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useContext} from "react";
 import Context from "../context/Context";
 import {loadDescription, loadList} from "../actions/actionCreators";
-
+// модалка для отображения ошибки со строны сервера
+// всякая логика в зависимости от того, какая ошибка (список, описание или ошибка загрузи на сервер)
 export default function Message(prop) {
     const {id} = useSelector(state => state.list);
     const {getFetch} = useContext(Context);
@@ -12,11 +13,11 @@ export default function Message(prop) {
 
     const handleRequest = () => {
         switch (variant) {
-            case 'list':
+            case 'list': // если была ошибка загрузки списка
                 dispatch(loadList());
                 getFetch({method: "GET", dispatch});
                 break;
-            case 'description':
+            case 'description': // если была ошибка загрузки описания
                 dispatch(loadDescription(id));
                 getFetch({method: "GET", dispatch, id});
                 break;
